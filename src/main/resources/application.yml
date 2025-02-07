@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # MySQL JDBC 드라이버 클래스 이름
+    url: jdbc:mysql://localhost:3306/livestream
+    # MySQL 데이터베이스 URL (호스트:포트/데이터베이스명)
+    username: root
+    # 데이터베이스 사용자 이름
+    password: root
+    # 데이터베이스 비밀번호
+  jpa:
+    show-sql: true
+    # SQL 쿼리 로그를 콘솔에 출력
+    properties:
+      hibernate:
+        format_sql: true
+        # SQL 쿼리 포맷팅
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    # Hibernate가 사용하는 MySQL 데이터베이스의 방언
+    hibernate:
+      ddl-auto: update
+      # Hibernate의 DDL 생성 전략 설정
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace
+    # Hibernate의 SQL 바인딩 로그 수준을 TRACE로 설정
