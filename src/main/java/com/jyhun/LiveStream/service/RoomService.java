@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -18,6 +20,11 @@ public class RoomService {
                 .build();
         roomRepository.save(room);
         return room.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Room> getAllRooms() {
+        return roomRepository.findAll();
     }
 
 }
