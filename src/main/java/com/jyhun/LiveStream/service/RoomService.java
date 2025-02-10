@@ -27,4 +27,9 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public Room getRoomById(Long id) {
+        return roomRepository.findById(id).orElse(null);
+    }
+
 }
