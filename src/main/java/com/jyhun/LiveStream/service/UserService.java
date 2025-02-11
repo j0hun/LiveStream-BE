@@ -3,6 +3,7 @@ package com.jyhun.LiveStream.service;
 import com.jyhun.LiveStream.dto.AuthDTO;
 import com.jyhun.LiveStream.dto.LoginDTO;
 import com.jyhun.LiveStream.dto.RegisterDTO;
+import com.jyhun.LiveStream.dto.ResponseDTO;
 import com.jyhun.LiveStream.entity.User;
 import com.jyhun.LiveStream.enums.Role;
 import com.jyhun.LiveStream.repository.UserRepository;
@@ -23,7 +24,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    public Void register(RegisterDTO registerDTO) {
+    public ResponseDTO register(RegisterDTO registerDTO) {
         User user = User.builder()
                 .username(registerDTO.getUsername())
                 .email(registerDTO.getEmail())
@@ -33,16 +34,25 @@ public class UserService {
 
         userRepository.save(user);
 
-        return null;
+        return ResponseDTO.builder()
+                .status(200)
+                .message("회원가입 성공")
+                .build();
     }
 
-    public AuthDTO login(LoginDTO loginDTO) {
+    public ResponseDTO login(LoginDTO loginDTO) {
         User user = userRepository.findByEmail(loginDTO.getEmail()).orElse(null);
         if(!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             throw new RuntimeException("패스워드가 맞지 않습니다.");
         }
         String token = jwtService.generateToken(user);
-        return new AuthDTO(token, user.getRole().name());
+        AuthDTO authDTO = new AuthDTO(token, user.getRole().name());
+
+        return ResponseDTO.builder()
+                .status(200)
+                .message("로그인 성공")
+                .data(authDTO)
+                .build();
     }
 
     @Transactional(readOnly = true)
