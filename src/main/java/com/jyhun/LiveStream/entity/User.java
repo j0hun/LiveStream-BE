@@ -1,5 +1,6 @@
 package com.jyhun.LiveStream.entity;
 
+import com.jyhun.LiveStream.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,5 +21,8 @@ public class User {
     private String email;
 
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
     
 }

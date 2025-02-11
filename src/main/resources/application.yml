@@ -24,3 +24,6 @@ logging:
   level:
     org.hibernate.orm.jdbc.bind: trace
     # Hibernate의 SQL 바인딩 로그 수준을 TRACE로 설정
+
+jwt:
+  secret: 2b7e151628aed2a6abf7158809cf4f3c762e7160d6d9d3b6fb6d88e8e846c61e
