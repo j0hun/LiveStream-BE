@@ -1,5 +1,7 @@
 package com.jyhun.LiveStream.controller;
 
+import com.jyhun.LiveStream.dto.AuthDTO;
+import com.jyhun.LiveStream.dto.LoginDTO;
 import com.jyhun.LiveStream.dto.RegisterDTO;
 import com.jyhun.LiveStream.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,11 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<Void> createUser(@RequestBody RegisterDTO registerDTO) {
         return ResponseEntity.ok(userService.register(registerDTO));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthDTO> login(@RequestBody LoginDTO loginDTO) {
+        return ResponseEntity.ok(userService.login(loginDTO));
     }
 
 }
