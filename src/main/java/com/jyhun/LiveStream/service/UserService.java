@@ -58,6 +58,9 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getLoggedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() ) {
+            return null;
+        }
         String email = authentication.getName();
         return userRepository.findByEmail(email).orElse(null);
     }

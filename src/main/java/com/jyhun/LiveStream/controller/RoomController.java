@@ -29,4 +29,9 @@ public class RoomController {
         return new ResponseEntity<>(roomService.getRoomById(roomId), HttpStatus.OK);
     }
 
+    @GetMapping("/{roomId}/checkBroadcaster")
+    public ResponseEntity<ResponseDTO> checkBroadcaster(@PathVariable Long roomId) {
+        return new ResponseEntity<>(roomService.checkBroadcaster(roomId), HttpStatus.OK);
+    }
+
 }
