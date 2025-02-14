@@ -11,6 +11,7 @@ public class SignalMessage {
     private String roomId;
     private String role;
     private Object signalData;
+    private String viewerId;
 
     // JSON 파싱 메소드
     public static SignalMessage fromJson(String json) throws JsonProcessingException {
