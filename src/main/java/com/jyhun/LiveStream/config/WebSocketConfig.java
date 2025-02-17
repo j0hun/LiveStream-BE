@@ -1,21 +1,20 @@
 package com.jyhun.LiveStream.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
-@Configuration
+//@Configuration
 @EnableWebSocket
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    private final WebSocketHandler webSocketHandler;
+    private final WebRTCP2PWebSocketHandler webRTCP2PWebSocketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(webSocketHandler, "/ws")
+        registry.addHandler(webRTCP2PWebSocketHandler, "/ws")
                 .setAllowedOrigins("*");
     }
 }

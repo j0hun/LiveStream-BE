@@ -2,7 +2,6 @@ package com.jyhun.LiveStream.config;
 
 import com.jyhun.LiveStream.dto.SignalMessage;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -14,9 +13,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
+//@Component
 @Slf4j
-public class WebSocketHandler extends TextWebSocketHandler {
+public class WebRTCP2PWebSocketHandler extends TextWebSocketHandler {
 
     // 각 방(roomId)에 연결된 모든 WebSocket 세션 관리
     private final Map<String, Set<WebSocketSession>> rooms = new ConcurrentHashMap<>();
