@@ -15,7 +15,7 @@ import java.util.*;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class JanusService {
+public class JanusStreamService {
 
     private final RestTemplate restTemplate;
 
