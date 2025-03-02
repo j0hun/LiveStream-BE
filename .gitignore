@@ -38,3 +38,4 @@ out/
 
 # custom #
 .gitmessage.txt
+.env
