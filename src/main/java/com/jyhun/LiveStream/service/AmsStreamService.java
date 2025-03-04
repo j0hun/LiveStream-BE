@@ -18,13 +18,13 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AmsStreamService {
 
-    @Value("${ams.base.url:http://localhost:5080/LiveApp}")
+    @Value("${ams.base.url:http://antmedia:5080/LiveApp}")
     private String AMS_BASE_URL;
 
     private final RestTemplate restTemplate;
 
     public String getHlsUrl(String streamId) {
-        return String.format("%s/streams/%s.m3u8", AMS_BASE_URL, streamId);
+        return String.format("%s/streams/%s.m3u8", "http://localhost:5080/LiveApp", streamId);
     }
 
     public Map<String, Object> startStream() {
