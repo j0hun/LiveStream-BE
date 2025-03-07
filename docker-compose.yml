@@ -18,8 +18,29 @@ services:
       - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
       - JWT_SECRET=${JWT_SECRET}
     depends_on:
+      mysql:
+        condition: service_healthy
       antmedia:
         condition: service_healthy
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    ports:
+      - "3307:3307"
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysql:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
 
   janus-gateway:
@@ -40,7 +61,7 @@ services:
     image: 'boris1993/ant-media-server:latest'
     container_name: antmedia
     ports:
-      - "1935:1935"       # RTMP
+      - "1936:1935"       # RTMP
       - "5080:5080"       # HTTP
       - "5443:5443"       # HTTPS
       - "3478:3478/udp"   # TURN/STUN (WebRTC)
@@ -53,5 +74,16 @@ services:
       timeout: 5s
       retries: 5
 
+  nginx-rtmp:
+    image: tiangolo/nginx-rtmp
+    container_name: nginx-rtmp
+    ports:
+      - "1935:1935"  # RTMP 포트
+      - "8081:8081"      # HTTP 포트
+    volumes:
+      - ./nginx.conf:/usr/local/nginx/conf/nginx.conf:ro
+    restart: always
+
 volumes:
+  mysql:
   antmedia:
