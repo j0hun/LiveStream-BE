@@ -24,7 +24,7 @@ public class AmsStreamService {
     private final RestTemplate restTemplate;
 
     public String getHlsUrl(String streamId) {
-        return String.format("%s/streams/%s.m3u8", "http://localhost:5080/LiveApp", streamId);
+        return String.format("%s/streams/%s.m3u8", AMS_BASE_URL, streamId);
     }
 
     public Map<String, Object> startStream() {
