@@ -23,3 +23,12 @@ EXPOSE 8080
 
 # 애플리케이션 실행
 ENTRYPOINT ["java", "-jar", "/app/LiveStream-0.0.1-SNAPSHOT.jar"]
+
+FROM tiangolo/nginx-rtmp
+
+# 필요하다면 /usr/local/nginx/conf/nginx.conf 파일 복사
+COPY nginx.conf /usr/local/nginx/conf/nginx.conf
+
+# Nginx 실행 시 -c 옵션으로 /usr/local/nginx/conf/nginx.conf 사용
+CMD ["nginx","-g","daemon off;","-c","/usr/local/nginx/conf/nginx.conf"]
+
