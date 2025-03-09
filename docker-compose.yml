@@ -9,6 +9,7 @@ services:
     env_file:
       - .env
     environment:
+      - BASE_URL=${BASE_URL}
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=${DB_USER}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
@@ -28,7 +29,7 @@ services:
     container_name: mysql
     restart: always
     ports:
-      - "3307:3307"
+      - "3306:3306"
     env_file:
       - .env
     environment:
@@ -37,7 +38,7 @@ services:
     volumes:
       - mysql:/var/lib/mysql
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "mysql" ]
       interval: 10s
       retries: 5
       timeout: 5s
@@ -69,7 +70,7 @@ services:
       - antmedia:/usr/local/antmedia/
     restart: always
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://antmedia:5080/LiveApp" ]
+      test: [ "CMD", "curl", "-f", "https://antmedia:5443/LiveApp" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -81,7 +82,7 @@ services:
       - "1935:1935"  # RTMP 포트
       - "8081:8081"      # HTTP 포트
     volumes:
-      - ./nginx.conf:/usr/local/nginx/conf/nginx.conf:ro
+      - ./nginx.conf:/usr/local/nginx/conf/nginx.conf
     restart: always
 
 volumes:
