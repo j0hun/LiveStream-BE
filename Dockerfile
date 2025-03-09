@@ -1,32 +1,25 @@
-# Build stage
-FROM ubuntu:24.04 as build
+# Build stage: Gradle 기반 빌드
+FROM gradle:7.6-jdk17 AS build
+WORKDIR /home/gradle/project
+# 프로젝트 전체 파일(빌드 스크립트, 소스 등)을 복사하고, 소유자 권한을 gradle로 설정합니다.
+COPY --chown=gradle:gradle . .
+# Gradle Wrapper를 사용해 빌드 (테스트는 건너뜁니다)
+RUN ./gradlew clean build -x test
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-# 필요한 패키지 설치 (OpenJDK 17, Maven 등)
-RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk maven && \
-    rm -rf /var/lib/apt/lists/*
-
-WORKDIR /app
-COPY . /app
-RUN mvn clean package -DskipTests
-
-# Runtime stage
+# Runtime stage: Ubuntu 24.04 기반 경량 이미지
 FROM ubuntu:24.04
-
 ENV DEBIAN_FRONTEND=noninteractive
-
-# 런타임에 필요한 OpenJDK 17 설치 (JRE 만 설치해 경량화할 수도 있음)
+# OpenJDK 17 JRE 설치
 RUN apt-get update && \
     apt-get install -y openjdk-17-jre-headless && \
     rm -rf /var/lib/apt/lists/*
-
-# 빌드 스테이지에서 생성된 JAR 파일 복사
+# 애플리케이션 파일을 저장할 디렉터리 생성
 RUN mkdir /app
-COPY --from=build /app/target/LiveStream-0.0.1-SNAPSHOT.jar /app/LiveStream-0.0.1-SNAPSHOT.jar
+# 빌드 단계에서 생성된 JAR 파일 복사 (생성된 파일명이 LiveStream-0.0.1-SNAPSHOT.jar 라고 가정)
+COPY --from=build /home/gradle/project/build/libs/LiveStream-0.0.1-SNAPSHOT.jar /app/LiveStream-0.0.1-SNAPSHOT.jar
 
-# 기본 포트 (Cloud Run 등에서는 PORT 환경변수를 사용하므로 EXPOSE는 정보 제공용입니다)
+# 애플리케이션이 사용하는 포트 (Cloud Run 등에서는 PORT 환경변수를 사용하지만, EXPOSE는 문서용)
 EXPOSE 8080
 
+# 애플리케이션 실행
 ENTRYPOINT ["java", "-jar", "/app/LiveStream-0.0.1-SNAPSHOT.jar"]
