@@ -19,7 +19,7 @@ public class JanusStreamService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${janus.server.url:https://janus-gateway:8089/janus}")
+    @Value("${janus.server.url:http://janus-gateway:8088/janus}")
     private String janusServerUrl;
 
     public ResponseEntity<Map> createRoom(String sessionId, String handleId, Long roomId) {
