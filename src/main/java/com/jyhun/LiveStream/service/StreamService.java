@@ -1,5 +1,6 @@
 package com.jyhun.LiveStream.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -7,8 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class StreamService {
 
+    @Value("${rtmp.base.url}")
+    private String RTMP_BASE_URL;
+
     public String getHlsUrl(String streamId) {
-        return "http://localhost:8081/hls/" + streamId + ".m3u8";
+        return RTMP_BASE_URL + streamId + ".m3u8";
     }
 
 }

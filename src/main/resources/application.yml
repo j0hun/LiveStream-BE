@@ -32,6 +32,10 @@ ams:
   base:
     url: ${AMS_BASE_URL}
 
+rtmp:
+  base:
+    url: ${RTMP_BASE_URL}
+
 management:
   endpoints:
     web:
