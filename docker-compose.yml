@@ -83,6 +83,7 @@ services:
       - "8081:8081"      # HTTP 포트
     volumes:
       - ./nginx.conf:/usr/local/nginx/conf/nginx.conf
+    command: ["nginx", "-g", "daemon off;", "-c", "/usr/local/nginx/conf/nginx.conf"]
     restart: always
 
 volumes:
