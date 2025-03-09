@@ -70,7 +70,7 @@ services:
       - antmedia:/usr/local/antmedia/
     restart: always
     healthcheck:
-      test: [ "CMD", "curl", "-f", "https://antmedia:5443/LiveApp" ]
+      test: [ "CMD", "curl", "-f", "http://antmedia:5080/LiveApp" ]
       interval: 10s
       timeout: 5s
       retries: 5
