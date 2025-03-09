@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AmsStreamService {
 
-    @Value("${ams.base.url:http://antmedia:5080/LiveApp}")
+    @Value("${ams.base.url}")
     private String AMS_BASE_URL;
 
     private final RestTemplate restTemplate;
