@@ -65,7 +65,7 @@ services:
       - "1936:1935"       # RTMP
       - "5080:5080"       # HTTP
       - "5443:5443"       # HTTPS
-      - "3478:3478/udp"   # TURN/STUN (WebRTC)
+      - "3479:3478/udp"   # TURN/STUN (WebRTC)
     volumes:
       - antmedia:/usr/local/antmedia/
     restart: always
@@ -83,7 +83,7 @@ services:
       - "8081:8081"      # HTTP 포트
     volumes:
       - ./nginx.conf:/usr/local/nginx/conf/nginx.conf
-    command: ["nginx", "-g", "daemon off;", "-c", "/usr/local/nginx/conf/nginx.conf"]
+    command: [ "sh", "-c", "mkdir -p /etc/letsencrypt && nginx -g 'daemon off;' -c /usr/local/nginx/conf/nginx.conf" ]
     restart: always
 
 volumes:
