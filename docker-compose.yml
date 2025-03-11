@@ -106,6 +106,13 @@ services:
       - grafana-storage:/var/lib/grafana
     restart: always
 
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    restart: always
+
 
 volumes:
   mysql:
