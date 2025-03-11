@@ -86,6 +86,28 @@ services:
     command: [ "sh", "-c", "mkdir -p /etc/letsencrypt && nginx -g 'daemon off;' -c /usr/local/nginx/conf/nginx.conf" ]
     restart: always
 
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    restart: always
+
+
 volumes:
   mysql:
   antmedia:
+  grafana-storage:
