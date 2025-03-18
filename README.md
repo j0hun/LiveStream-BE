@@ -3,7 +3,7 @@
 다양한 스트리밍 방식(WebRTC P2P, WebRTC SFU, AMS 서버를 이용한 WebRTC → RTP → HLS, Nginx-RTMP)의 성능을 비교 분석하여 서비스 규모에 따른 최적의 스트리밍 방식을 파악하기 위해 진행하였습니다.
 
 
-프론트엔드 깃허브 주소: https://github.com/j0hun/ShopProject-FE
+프론트엔드 깃허브 주소: https://github.com/j0hun/LiveStream-FE
 
 ---
 ## 🔧 테스트 환경
